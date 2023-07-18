@@ -42,6 +42,9 @@ void loop() {
     delay(250);
     matrix.off();
     delay(250);
+  } else {
+    matrix.good();
+    delay(500);
   }
 }
 
