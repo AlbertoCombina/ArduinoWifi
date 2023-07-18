@@ -39,6 +39,9 @@ void setup() {
 void loop() {
   if (WiFi.status()!=WL_CONNECTED){
     matrix.bad();
+    delay(250);
+    matrix.off();
+    delay(250);
   }
 }
 
