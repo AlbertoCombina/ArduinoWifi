@@ -1,9 +1,11 @@
 #include <Arduino.h>
 #include "Arduino_LED_Matrix.h"
 
-#define OFF  0
-#define GOOD 1
-#define BAD  2
+#define OFF      0
+#define GOOD     1
+#define BAD      2
+#define ON_TXT   3
+#define OFF_TXT  4
 
 byte off_m[8][12] = { {0,0,0,0,0,0,0,0,0,0,0,0},
                       {0,0,0,0,0,0,0,0,0,0,0,0},
@@ -32,6 +34,24 @@ byte bad_m[8][12] = {   {0,0,1,1,0,0,0,0,1,1,0,0},
                         {0,0,1,1,1,0,0,1,1,1,0,0},
                         {0,0,1,1,0,0,0,0,1,1,0,0}};
 
+byte on_txt_m[8][12] = {{0,0,0,0,0,0,0,0,0,0,0,0},
+                      {0,0,1,1,0,0,0,1,0,0,1,0},
+                      {0,1,0,0,1,0,0,1,1,0,1,0},
+                      {0,1,0,0,1,0,0,1,0,1,1,0},
+                      {0,1,0,0,1,0,0,1,0,0,1,0},
+                      {0,1,0,0,1,0,0,1,0,0,1,0},
+                      {0,0,1,1,0,0,0,1,0,0,1,0},
+                      {0,0,0,0,0,0,0,0,0,0,0,0}};
+
+byte off_txt_m[8][12] = {{0,0,0,0,0,0,0,0,0,0,0,0},
+                       {0,1,1,0,0,1,1,1,0,1,1,1},
+                       {1,0,0,1,0,1,0,0,0,1,0,0},
+                       {1,0,0,1,0,1,1,0,0,1,1,0},
+                       {1,0,0,1,0,1,0,0,0,1,0,0},
+                       {1,0,0,1,0,1,0,0,0,1,0,0},
+                       {0,1,1,0,0,1,0,0,0,1,0,0},
+                       {0,0,0,0,0,0,0,0,0,0,0,0}};
+
 class ConnectionMatrix{
 
 public:
@@ -46,30 +66,24 @@ public:
 
     void render(const int sel){
         switch (sel){
-            case 0:
+            case OFF:
                 matrix.renderBitmap(off_m, 8, 12);
                 break;  
-            case 1:
+            case GOOD:
                 matrix.renderBitmap(good_m, 8, 12);
                 break; 
-            case 2:
+            case BAD:
                 matrix.renderBitmap(bad_m, 8, 12);
+                break;
+            case ON_TXT:
+                matrix.renderBitmap(on_txt_m, 8, 12);
+                break;
+            case OFF_TXT:
+                matrix.renderBitmap(off_txt_m, 8, 12);
                 break;
             default:
             matrix.renderBitmap(off_m, 8, 12);
                 break;
         }
-    }
-
-    void off() {
-        render(OFF);
-    }    
-    
-    void good() {
-        render(GOOD);
-    }    
-    
-    void bad() {
-        render(BAD);
     }
 };
